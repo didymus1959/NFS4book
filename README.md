@@ -5,6 +5,6 @@ NFSv4 (Network File System Version 4) ist eine Weiterentwicklung des Dateisystem
 
 Von Thomas Bartholomäus
 
-Site: www.mindux.de
-GitBook: https:///
-e-mail: thomas.bartholomaeus[at]mindux.de
+* Site: www.mindux.de
+* GitBook: https:///
+* e-mail: thomas.bartholomaeus[at]mindux.de
