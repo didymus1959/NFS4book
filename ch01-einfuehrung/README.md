@@ -19,42 +19,46 @@ NFSv4 verfolgt insbesondere folgende Ziele:
 NFSv4 ist heute der **empfohlene Standard** für neue NFS-Installationen.
 ___
 
-🧱 Zentrale Eigenschaften von NFSv4
-Zustandsbehaftetes Protokoll
+### 🧱 Zentrale Eigenschaften von NFSv4
+
+#### Zustandsbehaftetes Protokoll
 
 NFSv4 verwaltet Server-Zustände (Sessions, Locks, Delegationen).
-Dadurch werden konsistente Datei- und Sperrmechanismen ermöglicht.
+Dadurch werden **konsistente Datei- und Sperrmechanismen** ermöglicht.
 
-Einheitlicher Port
+#### Einheitlicher Port
 
-Kommunikation erfolgt standardmäßig über TCP Port 2049
+. Kommunikation erfolgt standardmäßig über TCP Port 2049
 
-Kein separater Portmapper notwendig
+. Kein separater Portmapper notwendig
 
-Firewall- und WAN-freundlich
+. Firewall- und WAN-freundlich
 
-Integrierte Sicherheit
+#### Integrierte Sicherheit
 
-Unterstützung von RPCSEC_GSS
+. Unterstützung von RPCSEC_GSS
 
-Nutzung von Kerberos möglich
+. Nutzung von Kerberos möglich
 
-Authentifizierung, Integrität und Verschlüsselung auf Protokollebene
+. Authentifizierung, Integrität und Verschlüsselung auf Protokollebene
 
-Verbesserte Locking-Mechanismen
+#### Verbesserte Locking-Mechanismen
 
-Datei- und Record-Locks sind Teil des Protokolls
+.Datei- und Record-Locks sind Teil des Protokolls
 
-Kein separates Lock-Daemon-Konzept mehr
+.Kein separates Lock-Daemon-Konzept mehr
+___
 
-🌐 NFSv4 im Vergleich zu älteren Versionen
+### 🌐 NFSv4 im Vergleich zu älteren Versionen
 Merkmal	NFSv3	NFSv4
 Zustandsbehaftet	❌	✅
 Sicherheit integriert	❌	✅
 Fester Port	❌	✅
 Locking integriert	❌	✅
 WAN-tauglich	eingeschränkt	✅
-🧠 Merksätze
+
+
+### 🧠 Merksätze
 
 NFSv4 ist mehr als ein Update – es ist ein neues Protokolldesign.
 
