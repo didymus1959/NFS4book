@@ -8,3 +8,8 @@ Von Thomas Bartholomäus
 * Site: www.mindux.de
 * GitBook: https:///
 * e-mail: thomas.bartholomaeus[at]mindux.de
+
+## Lokale Weiterentwicklung
+Dieses Repository wurde lokal geklont und weiterbearbeitet.
+
+
