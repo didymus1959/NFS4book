@@ -47,7 +47,7 @@ ___
 ### 🌐 NFSv4 im Vergleich zu älteren Versionen
 
 | Merkmal |	NFSv3 |	NFSv4 |
-|---------|-------|-------|
+|---------|:-----:|:-----:|
 | Zustandsbehaftet      | 	❌ |	✅ |
 | Sicherheit integriert |	❌ |	✅ |
 | Fester Port           |	❌ |	✅ |
