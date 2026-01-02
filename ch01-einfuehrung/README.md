@@ -28,34 +28,31 @@ Dadurch werden **konsistente Datei- und Sperrmechanismen** ermöglicht.
 
 #### Einheitlicher Port
 
-. Kommunikation erfolgt standardmäßig über TCP Port 2049
-
-. Kein separater Portmapper notwendig
-
-. Firewall- und WAN-freundlich
+- Kommunikation erfolgt standardmäßig über TCP Port 2049
+- Kein separater Portmapper notwendig
+- Firewall- und WAN-freundlich
 
 #### Integrierte Sicherheit
 
-. Unterstützung von RPCSEC_GSS
-
-. Nutzung von Kerberos möglich
-
-. Authentifizierung, Integrität und Verschlüsselung auf Protokollebene
+- Unterstützung von RPCSEC_GSS
+- Nutzung von Kerberos möglich
+- Authentifizierung, Integrität und Verschlüsselung auf Protokollebene
 
 #### Verbesserte Locking-Mechanismen
 
-.Datei- und Record-Locks sind Teil des Protokolls
-
-.Kein separates Lock-Daemon-Konzept mehr
+- Datei- und Record-Locks sind Teil des Protokolls
+- Kein separates Lock-Daemon-Konzept mehr
 ___
 
 ### 🌐 NFSv4 im Vergleich zu älteren Versionen
-Merkmal	NFSv3	NFSv4
-Zustandsbehaftet	❌	✅
-Sicherheit integriert	❌	✅
-Fester Port	❌	✅
-Locking integriert	❌	✅
-WAN-tauglich	eingeschränkt	✅
+
+| Merkmal |	NFSv3 |	NFSv4 |
+|---------|-------|-------|
+| Zustandsbehaftet      | 	❌ |	✅ |
+| Sicherheit integriert |	❌ |	✅ |
+| Fester Port           |	❌ |	✅ |
+| Locking integriert    |	❌ |	✅ |
+| WAN-tauglich	        | eingeschränkt |	✅ |
 
 
 ### 🧠 Merksätze
