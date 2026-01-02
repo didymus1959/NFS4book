@@ -1,0 +1,19 @@
+# 🔐 Geheimnisse
+*.token
+*.secret
+
+# 🗑️ Temporäre Dateien
+*.log
+*.tmp
+*~
+
+# 🖥️ Editor- & Systemdateien
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# 🧪 Backups
+*.bak
+*.old
+
