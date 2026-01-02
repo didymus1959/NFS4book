@@ -1,4 +1,4 @@
-## 📘 Einführung in NFSv4
+### 📘 Einführung in NFSv4
 
 **NFSv4 (Network File System Version 4)** ist die moderne Weiterentwicklung des Network File Systems und stellt ein **zustandsbehaftetes, sicheres und leistungsfähiges Netzwerk-Dateisystem** dar.
 
@@ -6,21 +6,18 @@ Im Gegensatz zu älteren NFS-Versionen wurde NFSv4 **grundlegend neu konzipiert,
 ___
 
 
-🎯 Ziel von NFSv4
+### 🎯 Ziel von NFSv4
 
 NFSv4 verfolgt insbesondere folgende Ziele:
 
-einheitliches, standardisiertes Protokoll
+- einheitliches, standardisiertes Protokoll
+- verbesserte Sicherheit durch integrierte Authentifizierung
+- reduzierter Verwaltungsaufwand
+- bessere Unterstützung verteilter und globaler Umgebungen
+- konsistentes Locking und Zustandsverwaltung
 
-verbesserte Sicherheit durch integrierte Authentifizierung
-
-reduzierter Verwaltungsaufwand
-
-bessere Unterstützung verteilter und globaler Umgebungen
-
-konsistentes Locking und Zustandsverwaltung
-
-NFSv4 ist heute der empfohlene Standard für neue NFS-Installationen.
+NFSv4 ist heute der **empfohlene Standard** für neue NFS-Installationen.
+___
 
 🧱 Zentrale Eigenschaften von NFSv4
 Zustandsbehaftetes Protokoll
