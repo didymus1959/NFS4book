@@ -14,3 +14,10 @@ Dieses Repository wurde lokal geklont und weiterbearbeitet.
 
 ![NFS Übersicht](images/fig-01-nfs-logo.png)
 
+
+## 🧾 Abbildungsverzeichnis
+
+| Nr. | Titel | Datei |
+|---|---|---|
+| 1 | NFS-Logo | [fig-01](images/fig-01-nfs-logo.png) |
+
