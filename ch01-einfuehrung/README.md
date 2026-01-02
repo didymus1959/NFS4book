@@ -1,8 +1,10 @@
-📘 Einführung in NFSv4
+# H1 📘 Einführung in NFSv4
 
-NFSv4 (Network File System Version 4) ist die moderne Weiterentwicklung des Network File Systems und stellt ein zustandsbehaftetes, sicheres und leistungsfähiges Netzwerk-Dateisystem dar.
+**NFSv4 (Network File System Version 4)** ist die moderne Weiterentwicklung des Network File Systems und stellt ein **zustandsbehaftetes, sicheres und leistungsfähiges Netzwerk-Dateisystem** dar.
 
-Im Gegensatz zu älteren NFS-Versionen wurde NFSv4 grundlegend neu konzipiert, um heutigen Anforderungen an Sicherheit, Skalierbarkeit und Internet-Tauglichkeit gerecht zu werden.
+Im Gegensatz zu älteren NFS-Versionen wurde NFSv4 **grundlegend neu konzipiert,** um heutigen Anforderungen an Sicherheit, Skalierbarkeit und Internet-Tauglichkeit gerecht zu werden.
+___
+
 
 🎯 Ziel von NFSv4
 
