@@ -12,5 +12,5 @@ Von Thomas Bartholomäus
 ## Lokale Weiterentwicklung
 Dieses Repository wurde lokal geklont und weiterbearbeitet.
 
-![NFS Übersicht](images/nfs.png)
+![NFS Übersicht](images/fig-01-nfs-logo.png)
 
