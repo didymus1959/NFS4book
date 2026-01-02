@@ -57,11 +57,11 @@ ___
 
 ### 🧠 Merksätze
 
-NFSv4 ist mehr als ein Update – es ist ein neues Protokolldesign.
-
-Sicherheit und Locking sind fester Bestandteil von NFSv4.
-
-NFSv4 ist für moderne, verteilte Netzwerke ausgelegt.
+> NFSv4 ist mehr als ein Update – es ist ein neues Protokolldesign.
+>
+> Sicherheit und Locking sind fester Bestandteil von NFSv4.
+>
+> NFSv4 ist für moderne, verteilte Netzwerke ausgelegt.
 
 ---
 ⬅ [Zur Übersicht](../README.md)
