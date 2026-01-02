@@ -1,13 +1,12 @@
 # Kapitel 1 – Einführung
 
-## Ziel des Kapitels
-Dieses Kapitel gibt einen Überblick über NFS und die Motivation für NFSv4.
+[⬅ Zurück zur Übersicht](../README.md)
 
-## Inhalte
+## Inhalt
 - Was ist NFS?
-- Historische Entwicklung
 - Einsatzgebiete
+- Historie
 
-## Merksätze
-> NFS ist ein verteiltes Dateisystem.
+## Weiterführend
+[➡ Weiter zu Kapitel 2 – Grundlagen](../ch02-grundlagen/README.md)
 
