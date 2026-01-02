@@ -1,12 +1,69 @@
-# Kapitel 1 – Einführung
+📘 Einführung in NFSv4
 
-[⬅ Zurück zur Übersicht](../README.md)
+NFSv4 (Network File System Version 4) ist die moderne Weiterentwicklung des Network File Systems und stellt ein zustandsbehaftetes, sicheres und leistungsfähiges Netzwerk-Dateisystem dar.
 
-## Inhalt
-- Was ist NFS?
-- Einsatzgebiete
-- Historie
+Im Gegensatz zu älteren NFS-Versionen wurde NFSv4 grundlegend neu konzipiert, um heutigen Anforderungen an Sicherheit, Skalierbarkeit und Internet-Tauglichkeit gerecht zu werden.
 
-## Weiterführend
-[➡ Weiter zu Kapitel 2 – Grundlagen](../ch02-grundlagen/README.md)
+🎯 Ziel von NFSv4
+
+NFSv4 verfolgt insbesondere folgende Ziele:
+
+einheitliches, standardisiertes Protokoll
+
+verbesserte Sicherheit durch integrierte Authentifizierung
+
+reduzierter Verwaltungsaufwand
+
+bessere Unterstützung verteilter und globaler Umgebungen
+
+konsistentes Locking und Zustandsverwaltung
+
+NFSv4 ist heute der empfohlene Standard für neue NFS-Installationen.
+
+🧱 Zentrale Eigenschaften von NFSv4
+Zustandsbehaftetes Protokoll
+
+NFSv4 verwaltet Server-Zustände (Sessions, Locks, Delegationen).
+Dadurch werden konsistente Datei- und Sperrmechanismen ermöglicht.
+
+Einheitlicher Port
+
+Kommunikation erfolgt standardmäßig über TCP Port 2049
+
+Kein separater Portmapper notwendig
+
+Firewall- und WAN-freundlich
+
+Integrierte Sicherheit
+
+Unterstützung von RPCSEC_GSS
+
+Nutzung von Kerberos möglich
+
+Authentifizierung, Integrität und Verschlüsselung auf Protokollebene
+
+Verbesserte Locking-Mechanismen
+
+Datei- und Record-Locks sind Teil des Protokolls
+
+Kein separates Lock-Daemon-Konzept mehr
+
+🌐 NFSv4 im Vergleich zu älteren Versionen
+Merkmal	NFSv3	NFSv4
+Zustandsbehaftet	❌	✅
+Sicherheit integriert	❌	✅
+Fester Port	❌	✅
+Locking integriert	❌	✅
+WAN-tauglich	eingeschränkt	✅
+🧠 Merksätze
+
+NFSv4 ist mehr als ein Update – es ist ein neues Protokolldesign.
+
+Sicherheit und Locking sind fester Bestandteil von NFSv4.
+
+NFSv4 ist für moderne, verteilte Netzwerke ausgelegt.
+
+---
+⬅ [Zur Übersicht](../README.md)
+➡ [Weiter: Grundlagen von NFSv4](../ch02-grundlagen/README.md)
 
