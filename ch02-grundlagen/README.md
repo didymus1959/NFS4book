@@ -49,52 +49,44 @@ A::user1:rwaDxtTnNcCy
 D::user2:w
 ```
 
+> ⚠️ Wichtig: UID/GID müssen zwischen Client und Server konsistent sein
+> (z. B. über LDAP, FreeIPA oder manuell gepflegt)
+___
 
-⚠️ Wichtig: UID/GID müssen zwischen Client und Server konsistent sein
-(z. B. über LDAP, FreeIPA oder manuell gepflegt)
-
-4. Pseudofilesystem
+### 4. Pseudofilesystem
 
 Ein zentrales Konzept von NFSv4:
-
-Der Server präsentiert eine virtuelle Wurzel (/)
-
-Alle Exports liegen darunter
-
-Clients mounten immer relativ zu dieser NFS-Root
+- Der Server präsentiert eine virtuelle Wurzel (/)
+- Alle Exports liegen darunter
+- Clients mounten immer relativ zu dieser NFS-Root
 
 Beispiel:
-
+```bash
 mount server:/data/projekte /mnt/projekte
+```
+___
 
-5. Typischer Einsatz
+### 5. Typischer Einsatz
 
-Home-Verzeichnisse in Rechenzentren
+- Home-Verzeichnisse in Rechenzentren
+- Shared Storage für Virtualisierung
+- Cluster- und HPC-Umgebungen
+- Ersatz für SMB in reinen Linux-Setups
+___
 
-Shared Storage für Virtualisierung
+### 6. Vorteile & Nachteile
+#### ✅ Vorteile
 
-Cluster- und HPC-Umgebungen
+- Weniger Dienste, einfacher Betrieb
+- Bessere Sicherheit
+- Sauberes Locking
+- Firewall-freundlich
 
-Ersatz für SMB in reinen Linux-Setups
+#### ❌ Nachteile
 
-6. Vorteile & Nachteile
-✅ Vorteile
-
-Weniger Dienste, einfacher Betrieb
-
-Bessere Sicherheit
-
-Sauberes Locking
-
-Firewall-freundlich
-
-❌ Nachteile
-
-Komplexere ACLs
-
-Stateful → Server-Neustarts müssen sauber gehandhabt werden
-
-Kerberos erfordert zusätzliche Infrastruktur
+- Komplexere ACLs
+- Stateful → Server-Neustarts müssen sauber gehandhabt werden
+- Kerberos erfordert zusätzliche Infrastruktur
 
 7. Abgrenzung: NFSv4 vs. NFSv3
 Feature	NFSv3	NFSv4
