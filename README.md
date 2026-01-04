@@ -28,7 +28,7 @@ Kurze Beschreibung des Buchprojekts.
 6. [Kapitel 6 – Fehleranalyse](ch06-fehleranalyse/README.md)
 
 ## 🧾 Abbildungsverzeichnis
-- ![Abbildung 1 – NFS-Übersicht](../images/fig-01-nfs-uebersicht.png)
-- ![Abbildung 2 – NFS-Grundlagen](../images/fig-02-nfs-grd.png)
+- ![Abbildung 1 – NFS-Übersicht](images/fig-01-nfs-uebersicht.png)
+- ![Abbildung 2 – NFS-Grundlagen](images/fig-02-nfs-grd.png)
 
 
