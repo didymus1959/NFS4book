@@ -44,9 +44,10 @@ NFSv4 bringt ein eigenes **ACL-Modell**, das sich an Windows-ACLs orientiert:
 
 Beispiel:
 
-
+```bash
 A::user1:rwaDxtTnNcCy
 D::user2:w
+```
 
 
 ⚠️ Wichtig: UID/GID müssen zwischen Client und Server konsistent sein
