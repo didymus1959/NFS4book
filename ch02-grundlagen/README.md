@@ -14,44 +14,36 @@ ___
 ➡️ Für Anwendungen sieht es aus wie ein normales lokales Verzeichnis.
 ___
 
-2. Wichtige Neuerungen von NFSv4
+### 2. Wichtige Neuerungen von NFSv4
 
 Im Vergleich zu NFSv3:
 
-🔹 Ein einziger Port
+#### 🔹 Ein einziger Port
+- NFSv4 nutzt nur TCP Port 2049
+- Kein rpcbind, mountd oder statd mehr nötig
+    → Einfachere Firewall- und Cloud-Konfiguration
 
-NFSv4 nutzt nur TCP Port 2049
+#### 🔹 Stateful Protocol
+- Der Server kennt den Zustand der Clients
+- Ermöglicht File Locking direkt im Protokoll
+- Bessere Fehlerbehandlung nach Verbindungsabbrüchen
 
-Kein rpcbind, mountd oder statd mehr nötig
-→ Einfachere Firewall- und Cloud-Konfiguration
+#### 🔹 Integrierte Sicherheit
+- Unterstützung von Kerberos (z. B. krb5, krb5i, krb5p)
+- Optional: Authentifizierung, Integrität, Verschlüsselung
+- Kein separates NFSv3-Locking mehr nötig
 
-🔹 Stateful Protocol
+___
 
-Der Server kennt den Zustand der Clients
+### 3. Rechte & ACLs
 
-Ermöglicht File Locking direkt im Protokoll
-
-Bessere Fehlerbehandlung nach Verbindungsabbrüchen
-
-🔹 Integrierte Sicherheit
-
-Unterstützung von Kerberos (z. B. krb5, krb5i, krb5p)
-
-Optional: Authentifizierung, Integrität, Verschlüsselung
-
-Kein separates NFSv3-Locking mehr nötig
-
-3. Rechte & ACLs
-
-NFSv4 bringt ein eigenes ACL-Modell, das sich an Windows-ACLs orientiert:
-
-Feinere Rechte als klassische Unix-Rechte (rwx)
-
-Unterstützt User- und Gruppen-basierte Regeln
-
-Ideal für gemischte Linux-/Windows-Umgebungen
+NFSv4 bringt ein eigenes **ACL-Modell**, das sich an Windows-ACLs orientiert:
+- Feinere Rechte als klassische Unix-Rechte (rwx)
+- Unterstützt User- und Gruppen-basierte Regeln
+- Ideal für gemischte Linux-/Windows-Umgebungen
 
 Beispiel:
+
 
 A::user1:rwaDxtTnNcCy
 D::user2:w
