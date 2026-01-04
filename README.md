@@ -29,5 +29,6 @@ Kurze Beschreibung des Buchprojekts.
 
 ## 🧾 Abbildungsverzeichnis
 - [Abbildung 1 – NFS-Übersicht](images/fig-01-nfs-uebersicht.png)
+- [Abbildung 2 – NFS-Grundlagen](images/fig-02-nfs-grd.png)
 
 
