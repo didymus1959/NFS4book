@@ -88,10 +88,11 @@ ___
 - Stateful → Server-Neustarts müssen sauber gehandhabt werden
 - Kerberos erfordert zusätzliche Infrastruktur
 
-7. Abgrenzung: NFSv4 vs. NFSv3
-Feature	NFSv3	NFSv4
-Ports	Mehrere	Nur 2049
-Locking	Extern	Integriert
-Security	Schwach	Stark
-ACLs	POSIX	NFSv4 ACLs
-Stateful	Nein	Ja
+### 7. Abgrenzung: NFSv4 vs. NFSv3
+|Feature|	NFSv3	|NFSv4|
+|-------|-------  |-------|
+|Ports	| Mehrere |	Nur 2049|
+|Locking|	Extern	|Integriert|
+|Security|	Schwach|	Stark|
+|ACLs|	POSIX|	NFSv4 ACLs |
+|Stateful|	Nein|	Ja|
