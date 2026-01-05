@@ -37,139 +37,86 @@ Stellt die Dateien und Verzeichnisse bereit.
   - Datei-Locks
   - Client-Sessions
   - Benutzeridentitäten
-
 - Setzt Zugriffsrechte durch (ACLs)
 ___
 
+#### 3. Protokoll & Transport
 
-3. Protokoll & Transport
-AspektNFSv4TransportTCP onlyPort2049ZustandStatefulRPCONC RPC integriertFirewallsEinfach (ein Port)
+AspektNFSv4
+TransportTCP only
+Port2049
+ZustandStatefulRPCONC 
+RPC integriert
+FirewallsEinfach (ein Port)
+
 👉 Kein rpcbind, kein mountd, kein lockd mehr nötig (alles integriert).
+___
 
-🔐 Sicherheit & Authentifizierung
+### 🔐 Sicherheit & Authentifizierung
 
-Sicherheitsmechanismen:
-
+#### Sicherheitsmechanismen:
 
 AUTH_SYS (klassisch, UID/GID-basiert)
-
-
 Kerberos (RPCSEC_GSS):
-
-
 krb5 → Authentifizierung
-
-
 krb5i → Authentifizierung + Integrität
-
-
 krb5p → zusätzlich Verschlüsselung
 
-
-
-
-Zugriffskontrolle:
-
+#### Zugriffskontrolle:
 
 POSIX-Rechte
-
-
 NFSv4 ACLs (Windows-ähnlich, sehr granular)
+___
 
-
-
-🌳 Namespace-Konzept (wichtig!)
+### 🌳 Namespace-Konzept (wichtig!)
 Ein zentraler Unterschied zu NFSv3:
 
-
 Ein globaler Namespace
-
-
 Client mountet nur ein Root-Export, z. B.:
-
 
 mount -t nfs4 server:/ /mnt/nfs
 
 Unterhalb dieses Roots liegen alle Exporte logisch eingebunden.
 
-🔁 Sitzungen, Locks & Recovery
+___
 
-Stateful Design:
+### 🔁 Sitzungen, Locks & Recovery
 
+#### Stateful Design:
 
 Server merkt sich:
-
-
 geöffnete Dateien
-
-
 Locks
-
-
 Client-IDs
 
-
-
-
-Vorteile:
-
+#### Vorteile:
 
 Sauberes File-Locking
-
-
 Bessere POSIX-Semantik
 
-
-Herausforderung:
-
+#### Herausforderung:
 
 Server-Reboot → Client muss State neu aufbauen
-
-
 Gelöst durch:
-
-
 Lease-Zeiten
-
-
 Grace-Period nach Neustart
-
-
-
-
+___
 
 📊 Vergleich zu älteren NFS-Versionen
-MerkmalNFSv3NFSv4ZustandStatelessStatefulPortsVieleNur 2049SicherheitSchwachKerberos, ACLsLocksExtern (lockd)IntegriertNamespaceEinzelne ExporteGlobaler Namespace
+|Merkmal|NFSv3|NFSv4|
+|.......|.....|.....|
+|Zustand| Stateless| Stateful|
+|Ports| Viele| Nur 2049|
+|Sicherheit| Schwach| Kerberos, ACLs|
+|Locks |Extern (lockd)| Integriert|
+|Namespace| Einzelne Exporte| Globaler Namespace|
+___
 
-🧠 Zusammenfassung
-NFSv4 Client-Server-Architektur zeichnet sich aus durch:
+### 🧠 Zusammenfassung
+**NFSv4 Client-Server-Architektur** zeichnet sich aus durch:
+- Zustandsbehaftete Kommunikation
+- Einheitlichen Namespace
+- Integrierte Sicherheit & Locks
+- Firewall-freundliches Design
+- Bessere POSIX-Semantik
 
-
-Zustandsbehaftete Kommunikation
-
-
-Einheitlichen Namespace
-
-
-Integrierte Sicherheit & Locks
-
-
-Firewall-freundliches Design
-
-
-Bessere POSIX-Semantik
-
-
-Wenn du möchtest, kann ich dir im nächsten Schritt:
-
-
-eine vereinfachte ASCII-Skizze
-
-
-eine Beispiel-NFSv4-Serverkonfiguration
-
-
-oder den Vergleich zu SMB/CIFS
-
-
-machen.
