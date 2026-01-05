@@ -104,7 +104,7 @@ ___
 
 📊 Vergleich zu älteren NFS-Versionen
 |Merkmal|NFSv3|NFSv4|
-|.......|.....|.....|
+|:.......|:.....:|.....:|
 |Zustand| Stateless| Stateful|
 |Ports| Viele| Nur 2049|
 |Sicherheit| Schwach| Kerberos, ACLs|
