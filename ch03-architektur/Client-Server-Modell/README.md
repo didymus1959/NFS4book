@@ -1,0 +1,191 @@
+🧩 Grundidee des NFSv4 Client-Server-Modells
+NFSv4 (Network File System Version 4) erlaubt es Clients, Dateien so zu nutzen, als lägen sie lokal – tatsächlich befinden sie sich auf einem entfernten Server.
+
+
+Client: fordert Dateioperationen an (lesen, schreiben, sperren)
+
+
+Server: stellt Dateisysteme bereit und verwaltet Zugriffe
+
+
+Kommunikation: zustandsbehaftet (stateful) über TCP, meist Port 2049
+
+
+
+🏗️ Architekturüberblick
+
+1. NFSv4 Client
+Typischerweise ein Linux-, UNIX- oder BSD-System.
+Aufgaben:
+
+
+Mountet das entfernte Dateisystem
+
+
+Führt POSIX-Dateioperationen aus (open, read, write, lock)
+
+
+Hält Client-State (z. B. Datei-Handles, Locks, Sessions)
+
+
+Caching (Attribut- & Datencache)
+
+
+
+2. NFSv4 Server
+Stellt die Dateien und Verzeichnisse bereit.
+Aufgaben:
+
+
+Exportiert ein einheitliches Namespace-Root (kein /etc/exports pro Mount wie bei NFSv3)
+
+
+Verwalten von:
+
+
+Datei-Locks
+
+
+Client-Sessions
+
+
+Benutzeridentitäten
+
+
+
+
+Setzt Zugriffsrechte durch (ACLs)
+
+
+
+3. Protokoll & Transport
+AspektNFSv4TransportTCP onlyPort2049ZustandStatefulRPCONC RPC integriertFirewallsEinfach (ein Port)
+👉 Kein rpcbind, kein mountd, kein lockd mehr nötig (alles integriert).
+
+🔐 Sicherheit & Authentifizierung
+
+Sicherheitsmechanismen:
+
+
+AUTH_SYS (klassisch, UID/GID-basiert)
+
+
+Kerberos (RPCSEC_GSS):
+
+
+krb5 → Authentifizierung
+
+
+krb5i → Authentifizierung + Integrität
+
+
+krb5p → zusätzlich Verschlüsselung
+
+
+
+
+Zugriffskontrolle:
+
+
+POSIX-Rechte
+
+
+NFSv4 ACLs (Windows-ähnlich, sehr granular)
+
+
+
+🌳 Namespace-Konzept (wichtig!)
+Ein zentraler Unterschied zu NFSv3:
+
+
+Ein globaler Namespace
+
+
+Client mountet nur ein Root-Export, z. B.:
+
+
+mount -t nfs4 server:/ /mnt/nfs
+
+Unterhalb dieses Roots liegen alle Exporte logisch eingebunden.
+
+🔁 Sitzungen, Locks & Recovery
+
+Stateful Design:
+
+
+Server merkt sich:
+
+
+geöffnete Dateien
+
+
+Locks
+
+
+Client-IDs
+
+
+
+
+Vorteile:
+
+
+Sauberes File-Locking
+
+
+Bessere POSIX-Semantik
+
+
+Herausforderung:
+
+
+Server-Reboot → Client muss State neu aufbauen
+
+
+Gelöst durch:
+
+
+Lease-Zeiten
+
+
+Grace-Period nach Neustart
+
+
+
+
+
+📊 Vergleich zu älteren NFS-Versionen
+MerkmalNFSv3NFSv4ZustandStatelessStatefulPortsVieleNur 2049SicherheitSchwachKerberos, ACLsLocksExtern (lockd)IntegriertNamespaceEinzelne ExporteGlobaler Namespace
+
+🧠 Zusammenfassung
+NFSv4 Client-Server-Architektur zeichnet sich aus durch:
+
+
+Zustandsbehaftete Kommunikation
+
+
+Einheitlichen Namespace
+
+
+Integrierte Sicherheit & Locks
+
+
+Firewall-freundliches Design
+
+
+Bessere POSIX-Semantik
+
+
+Wenn du möchtest, kann ich dir im nächsten Schritt:
+
+
+eine vereinfachte ASCII-Skizze
+
+
+eine Beispiel-NFSv4-Serverkonfiguration
+
+
+oder den Vergleich zu SMB/CIFS
+
+
+machen.
