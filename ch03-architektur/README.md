@@ -6,3 +6,12 @@ Hier ist eine übersichtliche Erklärung der Architektur von NFSv4 im Client-Ser
 - [Locking](locking.md)
 - [Protokollablauf](protokoll.md)
 
+
+# Architektur
+
+## Client-Server-Modell
+Siehe `Client-Server-Modell/README.md`
+
+## Locking
+Siehe `Locking/README.md`
+
