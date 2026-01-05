@@ -1,61 +1,45 @@
-🧩 Grundidee des NFSv4 Client-Server-Modells
-NFSv4 (Network File System Version 4) erlaubt es Clients, Dateien so zu nutzen, als lägen sie lokal – tatsächlich befinden sie sich auf einem entfernten Server.
+Hier ist eine **übersichtliche Erklärung der Architektur von NFSv4 im Client-Server-Modell**, von den Grundkomponenten bis zu den Besonderheiten von NFSv4.
+___
+
+### 🧩 Grundidee des NFSv4 Client-Server-Modells
+
+**NFSv4 (Network File System Version 4)** erlaubt es Clients, Dateien so zu nutzen, als lägen sie lokal – tatsächlich befinden sie sich auf einem entfernten Server.
 
 
-Client: fordert Dateioperationen an (lesen, schreiben, sperren)
-
-
-Server: stellt Dateisysteme bereit und verwaltet Zugriffe
-
-
-Kommunikation: zustandsbehaftet (stateful) über TCP, meist Port 2049
+- **Client:** fordert Dateioperationen an (lesen, schreiben, sperren)
+- **Server:** stellt Dateisysteme bereit und verwaltet Zugriffe
+- **Kommunikation:** zustandsbehaftet (stateful) über TCP, meist Port 2049
 
 
 
-🏗️ Architekturüberblick
+### 🏗️ Architekturüberblick
 
-1. NFSv4 Client
+
+#### 1. NFSv4 Client
 Typischerweise ein Linux-, UNIX- oder BSD-System.
-Aufgaben:
 
+**Aufgaben:**
 
-Mountet das entfernte Dateisystem
+- Mountet das entfernte Dateisystem
+- Führt POSIX-Dateioperationen aus (open, read, write, lock)
+- Hält Client-State (z. B. Datei-Handles, Locks, Sessions)
+- Caching (Attribut- & Datencache)
+___
 
-
-Führt POSIX-Dateioperationen aus (open, read, write, lock)
-
-
-Hält Client-State (z. B. Datei-Handles, Locks, Sessions)
-
-
-Caching (Attribut- & Datencache)
-
-
-
-2. NFSv4 Server
+#### 2. NFSv4 Server
 Stellt die Dateien und Verzeichnisse bereit.
-Aufgaben:
 
+**Aufgaben:**
 
-Exportiert ein einheitliches Namespace-Root (kein /etc/exports pro Mount wie bei NFSv3)
+- Exportiert ein einheitliches Namespace-Root (kein /etc/exports pro Mount wie bei NFSv3)
 
+- Verwalten von:
+  - Datei-Locks
+  - Client-Sessions
+  - Benutzeridentitäten
 
-Verwalten von:
-
-
-Datei-Locks
-
-
-Client-Sessions
-
-
-Benutzeridentitäten
-
-
-
-
-Setzt Zugriffsrechte durch (ACLs)
-
+- Setzt Zugriffsrechte durch (ACLs)
+___
 
 
 3. Protokoll & Transport
