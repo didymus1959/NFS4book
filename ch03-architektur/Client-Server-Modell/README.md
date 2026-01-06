@@ -43,7 +43,7 @@ ___
 #### 3. Protokoll & Transport
 
 |Aspekt|NFSv4|
-|*-----|*-----|
+|:-----|:-----|
 |Transport|**TCP only**|
 |Port|**2049**|
 |Zustand|**Stateful**|
