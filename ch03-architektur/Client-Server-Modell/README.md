@@ -42,13 +42,13 @@ ___
 
 #### 3. Protokoll & Transport
 
-|Aspekt|NFSv4
+|Aspekt|NFSv4|
 |*-----|*-----|
 |Transport|**TCP only**|
 |Port|**2049**|
 |Zustand|**Stateful**|
 |RPC|ONC RPC integriert|
-|Firewalls|Einfach (ein Port)
+|Firewalls|Einfach (ein Port)|
 
 👉 Kein rpcbind, kein mountd, kein lockd mehr nötig (alles integriert).
 ___
