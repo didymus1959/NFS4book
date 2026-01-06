@@ -42,12 +42,13 @@ ___
 
 #### 3. Protokoll & Transport
 
-AspektNFSv4
-TransportTCP only
-Port2049
-ZustandStatefulRPCONC 
-RPC integriert
-FirewallsEinfach (ein Port)
+|Aspekt|NFSv4
+|*-----|*-----
+|Transport|**TCP only**|
+|Port|**2049**|
+|Zustand|**Stateful**|
+|RPC|ONC RPC integriert|
+|Firewalls|Einfach (ein Port)
 
 👉 Kein rpcbind, kein mountd, kein lockd mehr nötig (alles integriert).
 ___
@@ -56,11 +57,11 @@ ___
 
 #### Sicherheitsmechanismen:
 
-AUTH_SYS (klassisch, UID/GID-basiert)
-Kerberos (RPCSEC_GSS):
-krb5 → Authentifizierung
-krb5i → Authentifizierung + Integrität
-krb5p → zusätzlich Verschlüsselung
+- **AUTH_SYS** (klassisch, UID/GID-basiert)
+- **Kerberos (RPCSEC_GSS):**
+  - krb5 → Authentifizierung
+  - krb5i → Authentifizierung + Integrität
+  - krb5p → zusätzlich Verschlüsselung
 
 #### Zugriffskontrolle:
 
@@ -71,23 +72,23 @@ ___
 ### 🌳 Namespace-Konzept (wichtig!)
 Ein zentraler Unterschied zu NFSv3:
 
-Ein globaler Namespace
-Client mountet nur ein Root-Export, z. B.:
+- Ein globaler Namespace
+- Client mountet nur ein Root-Export, z. B.:
 
+```bash
 mount -t nfs4 server:/ /mnt/nfs
-
+```
 Unterhalb dieses Roots liegen alle Exporte logisch eingebunden.
-
 ___
 
 ### 🔁 Sitzungen, Locks & Recovery
 
 #### Stateful Design:
 
-Server merkt sich:
-geöffnete Dateien
-Locks
-Client-IDs
+- Server merkt sich:
+  - geöffnete Dateien
+  - Locks
+  - Client-IDs
 
 #### Vorteile:
 
@@ -96,10 +97,10 @@ Bessere POSIX-Semantik
 
 #### Herausforderung:
 
-Server-Reboot → Client muss State neu aufbauen
-Gelöst durch:
-Lease-Zeiten
-Grace-Period nach Neustart
+- **Server-Reboot → Client muss State neu aufbauen**
+- Gelöst durch:
+  - Lease-Zeiten
+   Grace-Period nach Neustart
 ___
 
 📊 Vergleich zu älteren NFS-Versionen
