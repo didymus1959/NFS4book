@@ -1,6 +1,5 @@
 Hier ist eine **übersichtliche Erklärung der Architektur von NFSv4 im Client-Server-Modell**, von den Grundkomponenten bis zu den Besonderheiten von NFSv4.
 ___
-
 +--------------------+           TCP / Port 2049           +--------------------+
 |     NFSv4 Client   | <--------------------------------> |     NFSv4 Server   |
 |--------------------|                                     |--------------------|
