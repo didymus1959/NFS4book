@@ -1,6 +1,6 @@
 Hier ist eine **übersichtliche Erklärung der Architektur von NFSv4 im Client-Server-Modell**, von den Grundkomponenten bis zu den Besonderheiten von NFSv4.
 ___
-![NFSv4 Client-Server Architektur](../images/fig-03-nfs4-archicture.png)
+![NFSv4 Client-Server Architektur](../../images/fig-03-nfs4-archicture.png)
 ___
 ### 🧩 Grundidee des NFSv4 Client-Server-Modells
 
