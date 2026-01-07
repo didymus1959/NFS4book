@@ -1,6 +1,28 @@
 Hier ist eine **übersichtliche Erklärung der Architektur von NFSv4 im Client-Server-Modell**, von den Grundkomponenten bis zu den Besonderheiten von NFSv4.
 ___
 
++--------------------+           TCP / Port 2049           +--------------------+
+|     NFSv4 Client   | <--------------------------------> |     NFSv4 Server   |
+|--------------------|                                     |--------------------|
+|  VFS / POSIX API   |  OPEN / READ / WRITE / LOCK (RPC)  |  NFSv4 Daemon      |
+|--------------------|------------------------------------>|  (nfsd)           |
+|  NFSv4 Client      |                                     |--------------------|
+|  - File Handles    | <----- Responses / Status -------- |  - File Handles   |
+|  - Caching         |                                     |  - Locks          |
+|  - Client State    |                                     |  - Sessions       |
+|--------------------|                                     |--------------------|
+|  Auth (AUTH_SYS /  | ===== RPCSEC_GSS (Kerberos) =====> |  Auth & ACLs      |
+|  Kerberos)         |                                     |--------------------|
++--------------------+                                     +--------------------+
+          |                                                           |
+          | mount server:/                                           | export /
+          v                                                           v
+   +-------------------+                                   +-------------------+
+   | Local Mountpoint  |                                   | Server Filesystem |
+   | /mnt/nfs          |                                   | (Global Namespace)|
+   +-------------------+                                   +-------------------+
+___
+
 ### 🧩 Grundidee des NFSv4 Client-Server-Modells
 
 **NFSv4 (Network File System Version 4)** erlaubt es Clients, Dateien so zu nutzen, als lägen sie lokal – tatsächlich befinden sie sich auf einem entfernten Server.
