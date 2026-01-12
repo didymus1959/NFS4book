@@ -1,13 +1,16 @@
-Überblick: Was ist NFSv4 Locking?
+### Überblick: Was ist NFSv4 Locking?
 
-NFSv4 integriert Datei-Locking vollständig in das Protokoll.
-Im Gegensatz zu NFSv2/v3 gibt es keinen separaten Lock-Daemon (rpc.statd, lockd) mehr.
+**NFSv4** integriert **Datei-Locking vollständig in das Protokoll.**
+Im Gegensatz zu **NFSv2/v3 gibt es keinen separaten Lock-Daemon** (rpc.statd, lockd) mehr.
 
 👉 Locking ist zustandsbehaftet (stateful) und Teil der normalen NFS-Kommunikation.
+___
 
-Architektur auf einen Blick
-Zentrale Komponenten
-Komponente	Aufgabe
+### Architektur auf einen Blick
+
+#### Zentrale Komponenten
+
+|Komponente|Aufgabe|
 NFSv4 Client	Verwaltet Lock-States, Open-States und Sessions
 NFSv4 Server	Hält Lock-Zustände persistent
 Lease-Mechanismus	Zeitlich begrenzte Gültigkeit der Locks
