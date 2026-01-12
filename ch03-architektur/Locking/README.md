@@ -19,19 +19,19 @@ ___
 
 ### Locking-Workflow (vereinfacht)
 
-- OPEN
+1. OPEN
   - Client öffnet eine Datei
   - Server erzeugt einen Open State
 
-- LOCK
+2. LOCK
   - Client fordert einen Byte-Range-Lock an
   -Server vergibt Lock, sofern verfügbar
 
-- Lease
+3. Lease
    - Lock ist an eine Lease-Zeit gebunden
    - Client muss regelmäßig bestätigen (Renew)
 
-- UNLOCK / CLOSE
+4. UNLOCK / CLOSE
   - Lock wird explizit oder implizit freigegeben
 
 ___
