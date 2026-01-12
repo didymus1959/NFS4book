@@ -48,78 +48,74 @@ ___
 
 ___
 
-Recovery nach Server-Neustart
-Problem
+### Recovery nach Server-Neustart
 
-Server verliert Lock-State im RAM
+**Problem**
+- Server verliert Lock-State im RAM
 
-Lösung in NFSv4
+**Lösung in NFSv4**
+- Clients erkennen den Neustart
+- Reclaim Locks
+- Kein statd-Recovery nötig
+___
 
-Clients erkennen den Neustart
+### Unterschiede zu NFSv3
 
-Reclaim Locks
+|Feature|	NFSv3|	NFSv4|
+|--------|-------|--------|
+|Locking|	Extern (lockd)|	Integriert|
+|Zustand|	Stateless|	Stateful|
+|Firewall-freundlich|	❌|	✅ (Port 2049)|
+|Recovery|	Komplex	|Automatisch<
 
-Kein statd-Recovery nötig
+___
 
-Unterschiede zu NFSv3
-Feature	NFSv3	NFSv4
-Locking	Extern (lockd)	Integriert
-Zustand	Stateless	Stateful
-Firewall-freundlich	❌	✅ (Port 2049)
-Recovery	Komplex	Automatisch
-Typische Lock-Arten
+### Typische Lock-Arten
 
-Advisory Locks
+- Advisory Locks
+  - Kooperativ
+  - Applikationsabhängig
 
-Kooperativ
+- Byte-Range Locks
+  - Teilbereiche von Dateien
 
-Applikationsabhängig
+- Share Reservations
+  - Verhindert konkurrierendes Öffnen
+___
 
-Byte-Range Locks
-
-Teilbereiche von Dateien
-
-Share Reservations
-
-Verhindert konkurrierendes Öffnen
-
-Vorteile der NFSv4-Locking-Architektur
+### Vorteile der NFSv4-Locking-Architektur
 
 ✅ Weniger Daemons
 ✅ Firewall-freundlich
 ✅ Konsistentes Locking
 ✅ Bessere Crash-Recovery
 ✅ Für Cluster & HA geeignet
+___
 
-Häufige Probleme & Ursachen
-ProblemUrsacheLocks verschwindenLease abgelaufen„Stale stateid“Server-RestartPerformanceZu kurze Lease-ZeitHänger bei IOLock-Contention
+### Häufige Probleme & Ursachen
 
-Praxis-Tipps
+|Problem| Ursache|
+|-------|--------|
+|Locks verschwinden|Lease abgelaufen|
+|„Stale stateid“|Server-Restart|
+|Performance|Zu kurze Lease-Zeit|
+|Hänger bei IO|Lock-Contention|
+____
 
+### Praxis-Tipps
 
-Lease-Zeit prüfen
+- Lease-Zeit prüfen
+
+```bash
 cat /proc/fs/nfsd/nfsv4leasetime
+```
 
+- Für Cluster:
+  - Stabile Zeit (NTP!)
+  - Gemeinsamer Storage
 
-
-Für Cluster:
-
-
-Stabile Zeit (NTP!)
-
-
-Gemeinsamer Storage
-
-
-
-
-Für Datenbanken:
-
-
-Besser lokales FS oder Cluster-FS
-
-
-
+- Für Datenbanken:
+  - Besser lokales FS oder Cluster-FS
 
 Hier ist NFSv4-Locking erklärt am konkreten Szenario „VM-Storage“ (z. B. mehrere Hypervisor greifen auf ein gemeinsames NFS-Share zu).
 
