@@ -12,48 +12,41 @@ ___
 
 |Komponente|Aufgabe|
 |----------|-------|
-|NFSv4 Client|Verwaltet Lock-States, Open-States und Sessions|
-|NFSv4 Server|Hält Lock-Zustände persistent|
-|Lease-Mechanismus|Zeitlich begrenzte Gültigkeit der Locks|
-|Compound RPCs|Mehrere Operationen in einem Request|
+|**NFSv4 Client**|Verwaltet Lock-States, Open-States und Sessions|
+|**NFSv4 Server**|Hält Lock-Zustände persistent|
+|**Lease-Mechanismus**|Zeitlich begrenzte Gültigkeit der Locks|
+|**Compound RPCs**|Mehrere Operationen in einem Request|
 
-Locking-Workflow (vereinfacht)
+### Locking-Workflow (vereinfacht)
 
-OPEN
+- OPEN
+  - Client öffnet eine Datei
+  - Server erzeugt einen Open State
 
-Client öffnet eine Datei
+- LOCK
+  - Client fordert einen Byte-Range-Lock an
+  -Server vergibt Lock, sofern verfügbar
 
-Server erzeugt einen Open State
+- Lease
+   - Lock ist an eine Lease-Zeit gebunden
+   - Client muss regelmäßig bestätigen (Renew)
 
-LOCK
+- UNLOCK / CLOSE
+  - Lock wird explizit oder implizit freigegeben
 
-Client fordert einen Byte-Range-Lock an
+___
 
-Server vergibt Lock, sofern verfügbar
+### Lease-Mechanismus (wichtig!)
 
-Lease
+- Standard-Lease: 30–90 Sekunden
+- Wenn der Client nicht rechtzeitig erneuert:
+  - Server verwirft alle Locks
 
-Lock ist an eine Lease-Zeit gebunden
+- Schutz gegen:
+  - Client-Crashes
+  - Netzwerkausfälle
 
-Client muss regelmäßig bestätigen (Renew)
-
-UNLOCK / CLOSE
-
-Lock wird explizit oder implizit freigegeben
-
-Lease-Mechanismus (wichtig!)
-
-Standard-Lease: 30–90 Sekunden
-
-Wenn der Client nicht rechtzeitig erneuert:
-
-Server verwirft alle Locks
-
-Schutz gegen:
-
-Client-Crashes
-
-Netzwerkausfälle
+___
 
 Recovery nach Server-Neustart
 Problem
