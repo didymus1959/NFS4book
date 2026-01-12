@@ -11,6 +11,7 @@ ___
 #### Zentrale Komponenten
 
 |Komponente|Aufgabe|
+|----------|-------|
 NFSv4 Client	Verwaltet Lock-States, Open-States und Sessions
 NFSv4 Server	Hält Lock-Zustände persistent
 Lease-Mechanismus	Zeitlich begrenzte Gültigkeit der Locks
