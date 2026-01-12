@@ -86,9 +86,13 @@ ___
 ### Vorteile der NFSv4-Locking-Architektur
 
 ✅ Weniger Daemons
+
 ✅ Firewall-freundlich
+
 ✅ Konsistentes Locking
+
 ✅ Bessere Crash-Recovery
+
 ✅ Für Cluster & HA geeignet
 ___
 
