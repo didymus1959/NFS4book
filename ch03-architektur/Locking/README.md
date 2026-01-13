@@ -241,6 +241,8 @@ ___
 ### Kurzfassung
 
 > NFSv4-Locking ist der Sicherheitsgurt für VM-Storage
+>
 > Ohne Locking → Datenverlust
+>
 > Mit NFSv4 → kontrollierter, clusterfähiger Betrieb
 
