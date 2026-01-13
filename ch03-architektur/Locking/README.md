@@ -121,143 +121,122 @@ cat /proc/fs/nfsd/nfsv4leasetime
 - Für Datenbanken:
   - Besser lokales FS oder Cluster-FS
 
-Hier ist NFSv4-Locking erklärt am konkreten Szenario „VM-Storage“ (z. B. mehrere Hypervisor greifen auf ein gemeinsames NFS-Share zu).
+## NFSv4-Locking erklärt am konkreten Szenario „VM-Storage“ (z. B. mehrere Hypervisor greifen auf ein gemeinsames NFS-Share zu).
 
-Szenario: VM-Storage auf NFSv4
-Ausgangslage
+### Szenario: VM-Storage auf NFSv4
 
-Mehrere Hypervisor-Hosts (z. B. KVM/Proxmox)
-
-Gemeinsames NFSv4-Share
-
-VM-Disks liegen als Dateien (vm-100-disk-0.qcow2) auf NFS
-
-Nur ein Host darf eine VM gleichzeitig schreiben
+**Ausgangslage**
+- Mehrere **Hypervisor-Hosts** (z. B. KVM/Proxmox)
+- Gemeinsames **NFSv4-Share**
+- VM-Disks liegen als Dateien (vm-100-disk-0.qcow2) auf NFS
+- **Nur ein Host darf eine VM gleichzeitig schreiben**
 
 ➡️ Locking ist kritisch, sonst droht Dateisystem-Korruption
+___
 
-Schritt-für-Schritt: Locking beim VM-Start
-1️⃣ VM wird gestartet (Host A)
+### Schritt-für-Schritt: Locking beim VM-Start
+**1️⃣ VM wird gestartet (Host A)**
 
-Ablauf:
+**Ablauf:**
 
-Hypervisor öffnet VM-Disk
-
-NFSv4:
-
-OPEN → Open State
-
-LOCK → Exclusive Byte-Range Lock (0–EOF)
-
-Server vergibt Lock
-
-VM startet
+1. Hypervisor öffnet VM-Disk
+2. NFSv4:
+  - OPEN → Open State
+  - LOCK → Exclusive Byte-Range Lock (0–EOF)
+3. Server vergibt Lock
+4. VM startet
 
 📌 Ergebnis:
+- Host A besitzt exklusiven Schreibzugriff
+- Host B wird blockiert
+___
 
-Host A besitzt exklusiven Schreibzugriff
+**2️⃣ Zweiter Startversuch (Host B)**
 
-Host B wird blockiert
+- Host B versucht:
+  - OPEN + LOCK
+- Server antwortet:
+  - ❌ Lock denied (EAGAIN / EWOULDBLOCK)
 
-2️⃣ Zweiter Startversuch (Host B)
+➡️ VM kann **nicht doppelt gestartet** werden
+**➡️ Datenschutz & Konsistenz gewährleistet**
+___
 
-Host B versucht:
+### Lease-Mechanismus im VM-Betrieb
+**Während die VM läuft:**
+- Host A erneuert regelmäßig seine Lease
+- Erfolgt automatisch über normale IOs
+- Lease-Typisch: **30–90 Sekunden**
 
-OPEN + LOCK
+### Vorteil:
+- Kein permanenter Heartbeat nötig
+- Geringe Netzwerk-Last
+___
 
-Server antwortet:
+### Crash-Szenario: Hypervisor stürzt ab
+**Problem**
+- Host A ist weg
+- Lock ist noch aktiv
 
-❌ Lock denied (EAGAIN / EWOULDBLOCK)
-
-➡️ VM kann nicht doppelt gestartet werden
-➡️ Datenschutz & Konsistenz gewährleistet
-
-Lease-Mechanismus im VM-Betrieb
-Während die VM läuft:
-
-Host A erneuert regelmäßig seine Lease
-
-Erfolgt automatisch über normale IOs
-
-Lease-Typisch: 30–90 Sekunden
-
-Vorteil:
-
-Kein permanenter Heartbeat nötig
-
-Geringe Netzwerk-Last
-
-Crash-Szenario: Hypervisor stürzt ab
-Problem
-
-Host A ist weg
-
-Lock ist noch aktiv
-
-Lösung durch NFSv4
-
-Lease von Host A läuft ab
-
-Server verwirft:
-
-Open State
-
-Lock State
-
-Host B kann VM starten
+### Lösung durch NFSv4
+1. Lease von Host A läuft ab
+2. Server verwirft:
+  - Open State
+  - Lock State
+3. Host B kann VM starten
 
 ⏱️ Downtime = Lease-Zeit
 
 📌 Kein manuelles Unlock nötig
+___
 
-Server-Neustart (Storage-Reboot)
-Was passiert?
+### Server-Neustart (Storage-Reboot)
+**Was passiert?**
+- Server verliert Lock-State im RAM
 
-Server verliert Lock-State im RAM
-
-NFSv4-Recovery:
-
-Server signalisiert „Grace Period“
-
-Clients:
-
-Reclaim Locks
-
-Laufende VMs:
-
-IO kurz pausiert
-
-Danach Weiterbetrieb
+**NFSv4-Recovery:**
+1. Server signalisiert „Grace Period“
+2. Clients:
+  - Reclaim Locks
+3. Laufende VMs:
+  - IO kurz pausiert
+  - Danach Weiterbetrieb
 
 ⚠️ Voraussetzung:
 
-Stabile Client-IDs
+- **Stabile Client-IDs**
+- **Zeit-Synchronisation (NTP!)**
 
-Zeit-Synchronisation (NTP!)
+___
 
-Warum NFSv4 gut für VM-Storage ist
-Vorteil	Bedeutung
-Stateful Locking	Schutz vor Doppelstarts
-Lease-basiert	Automatisches Recovery
-Port 2049	Firewall-freundlich
-Kein lockd/statd	Weniger Fehlerquellen
-Byte-Range Locks	Ganze Disk exklusiv sperrbar
-Typische Fehler & ihre Ursachen
-Symptom	Ursache
-VM „hängt“ beim Start	Lock-Contention
-VM startet zu früh nach Crash	Lease zu kurz
-IO-Freezes	Server in Grace Period
-„stale stateid“	Storage-Reboot
-Best Practices für VM-Storage auf NFSv4
+### Warum NFSv4 gut für VM-Storage ist
+|Vorteil|	Bedeutung|
+|-------|------------|
+|Stateful Locking|	Schutz vor Doppelstarts|
+|Lease-basiert	|Automatisches Recovery|
+|Port 2049|	Firewall-freundlich|
+|Kein lockd/statd|	Weniger Fehlerquellen|
+|Byte-Range Locks|	Ganze Disk exklusiv sperrbar|
 
-✅ NFSv4.1 oder 4.2 verwenden
-✅ Lease nicht zu kurz konfigurieren
-✅ NTP auf allen Hosts
-✅ Keine gleichzeitigen Mounts als rw außerhalb des Clusters
-✅ Für DB-intensive VMs ggf. lokale Disks bevorzugen
+### Typische Fehler & ihre Ursachen
+|Symptom|	Ursache|
+|-------|----------|
+|VM „hängt“ beim Start|	Lock-Contention|
+|VM startet zu früh nach Crash|	Lease zu kurz|
+|IO-Freezes	|Server in Grace Period|
+|„stale stateid“|	Storage-Reboot|
 
-Kurzfassung
+### Best Practices für VM-Storage auf NFSv4
+
+**✅ NFSv4.1 oder 4.2 verwenden**
+**✅ Lease nicht zu kurz konfigurieren**
+**✅ NTP auf allen Hosts**
+**✅ Keine gleichzeitigen Mounts als rw außerhalb des Clusters**
+**✅ Für DB-intensive VMs ggf. lokale Disks bevorzugen**
+
+### Kurzfassung
 
 NFSv4-Locking ist der Sicherheitsgurt für VM-Storage
 Ohne Locking → Datenverlust
 Mit NFSv4 → kontrollierter, clusterfähiger Betrieb
+
