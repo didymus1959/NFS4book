@@ -229,9 +229,13 @@ ___
 ### Best Practices für VM-Storage auf NFSv4
 
 **✅ NFSv4.1 oder 4.2 verwenden**
+
 **✅ Lease nicht zu kurz konfigurieren**
+
 **✅ NTP auf allen Hosts**
+
 **✅ Keine gleichzeitigen Mounts als rw außerhalb des Clusters**
+
 **✅ Für DB-intensive VMs ggf. lokale Disks bevorzugen**
 
 ### Kurzfassung
