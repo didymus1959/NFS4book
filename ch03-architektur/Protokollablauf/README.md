@@ -45,109 +45,119 @@ ___
 ```
 ___
 
-🔐 Sicherheits- und Identitätsmodell
-Authentifizierung (RPCSEC_GSS)
+## 🔐 Sicherheits- und Identitätsmodell
 
-AUTH_SYS (klassisch, unsicher)
+### Authentifizierung (RPCSEC_GSS)
+- **AUTH_SYS** (klassisch, unsicher)
+- **Kerberos** (empfohlen):
+  - krb5 → Auth
+  - krb5i → Auth + Integrität
+  - krb5p → Auth + Verschlüsselung
 
-Kerberos (empfohlen):
+### Identitäten
+- User/Group als Strings:
 
-krb5 → Auth
-
-krb5i → Auth + Integrität
-
-krb5p → Auth + Verschlüsselung
-
-Identitäten
-
-User/Group als Strings:
-
+```bash
 user@domain
+```
 
+- Mapping via:
+  - idmapd
+  - LDAP / AD
 
-Mapping via:
+### 🔁 Protokollablauf (typischer Zugriff)
+**1. Mount (Pseudo-Filesystem)**
 
-idmapd
-
-LDAP / AD
-
-🔁 Protokollablauf (typischer Zugriff)
-1. Mount (Pseudo-Filesystem)
+```bash
 Client → Server: GETATTR /
 Client → Server: LOOKUP export
-
+```
 
 ⚠️ Kein echtes mountd mehr – alles über NFS selbst.
+___
 
-2. Datei öffnen
+**2. Datei öffnen**
+
+```bash
 PUTFH (Filehandle setzen)
 OPEN
-
-
+```
 ✔ Server merkt sich:
+- Wer die Datei geöffnet hat
+- Mit welchem Modus (read/write)
+___
 
-Wer die Datei geöffnet hat
+**3. Lesen / Schreiben**
 
-Mit welchem Modus (read/write)
-
-3. Lesen / Schreiben
+```bash
 READ
 WRITE
+``` 
 
+- Zustandsabhängig
+- Caching erlaubt, aber serverkoordiniert
+___
 
-Zustandsabhängig
+**4. Locking**
 
-Caching erlaubt, aber serverkoordiniert
-
-4. Locking
+```bash
 LOCK
 LOCKU
+```
 
+✔ Locking ist **integriert** (kein NLM mehr!)
+___
 
-✔ Locking ist integriert (kein NLM mehr!)
+**5. Schließen**
 
-5. Schließen
+```bash
 CLOSE
+```
+___
 
-📦 Compound RPCs (zentrales NFSv4-Merkmal)
+### 📦 Compound RPCs (zentrales NFSv4-Merkmal)
 
 Mehrere Operationen in einem Request:
 
+```bash
 PUTFH → LOOKUP → OPEN → READ → CLOSE
-
+```
 
 ✅ Vorteile:
+- Weniger Netzwerk-Roundtrips
+- Atomare Abläufe
+- Bessere Performance über WAN
+___
 
-Weniger Netzwerk-Roundtrips
+### 🔄 Recovery & Session-Handling
+**Leases**
 
-Atomare Abläufe
+- Server vergibt Leases (Zeitfenster)
+- Client muss regelmäßig bestätigen
 
-Bessere Performance über WAN
+**Server-Neustart**
 
-🔄 Recovery & Session-Handling
-Leases
+- Client erkennt „grace period“
+- Reclaim von:
+  - Opens
+  - Locks
+___
 
-Server vergibt Leases (Zeitfenster)
+### 🆚 Unterschiede zu NFSv3 (Kurz)
+|Feature|	NFSv3|	NFSv4|
+|-------|--------|-------|
+|Zustand|	Stateless|	Stateful|
+|Locking|	Extra (NLM)|	Integriert|
+|Sicherheit|	AUTH_SYS|	Kerberos|
+|Ports|	Viele|	Nur 2049|
+|WAN-fähig|	Eingeschränkt|	Ja|
+___
 
-Client muss regelmäßig bestätigen
-
-Server-Neustart
-
-Client erkennt „grace period“
-
-Reclaim von:
-
-Opens
-
-Locks
-
-🆚 Unterschiede zu NFSv3 (Kurz)
-Feature	NFSv3	NFSv4
-Zustand	Stateless	Stateful
-Locking	Extra (NLM)	Integriert
-Sicherheit	AUTH_SYS	Kerberos
-Ports	Viele	Nur 2049
-WAN-fähig	Eingeschränkt	Ja
 🧠 Merksatz
 
-NFSv4 ist ein sicheres, zustandsbehaftetes, session-orientiertes Dateiprotokoll mit integrierter Sicherheit, Locking und komplexen RPC-Operationen.
+> NFSv4 ist ein sicheres, zustandsbehaftetes, session-orientiertes Dateiprotokoll mit integrierter Sicherheit, Locking und komplexen RPC-Operationen.
+
+
+
+
+
