@@ -323,32 +323,36 @@ ___
 
 **👉 Empfohlene Einstellung für produktive NFS-Clients im LAN**
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 **Client (optional Tuning)**
 
 ```bash
 rsize=1048576,wsize=1048576
 ```
+___
 
 
-9️⃣ Typische Fehler & Lösungen
-Problem	Ursache	Lösung
-permission denied	UID mismatch	gleiche UID/GID
-Hängt beim Boot	kein _netdev	fstab anpassen
-Root darf alles	no_root_squash	nicht verwenden
-Langsam	kleine rsize	1M setzen
+### 9️⃣ Typische Fehler & Lösungen
+
+|Problem|	Ursache|	Lösung|
+|-------|----------|----------|
+|permission denied|	UID mismatch|	gleiche UID/GID|
+|Hängt beim Boot|	kein netdev|	fstab anpassen|
+|Root darf alles|	|no_root_squash|	nicht verwenden|
+|Langsam|	kleine rsize|	1M setzen|
+
+___
+
+### 🔐 Sicherheit (Praxis-Minimum)
+- NFS nur im internen Netz
+- Firewall aktiv
+- root_squash immer
+- Regelmäßige **Backups auf dem Server**, nicht vom Client
+
+___
+
+✅ Ergebnis
+
+✔ Zentraler, stabiler Fileserver
+✔ Saubere Linux-Integration
+✔ Minimaler Wartungsaufwand
+✔ Praxis- & produktionsgeeignet
