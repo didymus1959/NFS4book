@@ -24,8 +24,8 @@ Kurze Beschreibung des Buchprojekts.
 2. [Kapitel 2 – Grundlagen](ch02-grundlagen/README.md)
 3. [Kapitel 3 – Architektur](ch03-architektur/README.md)
 4. [Kapitel 4 – Konfiguration](ch04-konfiguration/README.md)
-5. [Kapitel 5 – Sicherheit](ch05-sicherheit/README.md)
-6. [Kapitel 6 – Fehleranalyse](ch06-fehleranalyse/README.md)
+<!-- 5. [Kapitel 5 – Sicherheit](ch05-sicherheit/README.md) -->
+<!--6. [Kapitel 6 – Fehleranalyse](ch06-fehleranalyse/README.md) -->
 
 ## 🧾 Abbildungsverzeichnis
 - [Abbildung 1 – NFS-Übersicht](images/fig-01-nfs-logo.png)
