@@ -361,4 +361,189 @@ ___
 ✔ Praxis- & produktionsgeeignet
 ___
 
+Hier ist ein **praxistaugliches Setup für NFSv4 + Kerberos unter Linux** – so wie es **in sicheren Umgebungen (Praxis, Behörde, Klinik, Forschung)** eingesetzt wird.
 
+👉 Ziel: **verschlüsselter, authentifizierter Zugriff auf NFS, keine UID-Spoofing-Risiken, kein Root-Zugriff vom Client.**
+
+### 🎯 Was bringt NFS + Kerberos?
+
+|Problem ohne Kerberos|	Lösung mit Kerberos|
+|---------------------|--------------------|
+|UID/GID manipulierbar|	Starke Authentifizierung|
+|Klartext-Zugriff|	Verschlüsselung möglich|
+|Root-Spoofing|	kryptografisch verhindert|
+|Kein User-Tracking|	Pro Benutzer authentifiziert|
+
+___
+
+### 🧠 Architektur (Minimal & bewährt)
+
+|Rolle	|Dienst|
+|-------|-------|
+|KDC	|Kerberos Key Distribution Center|
+|NFS-Server|	nfs-kernel-server|
+|Clients|	|nfs-common + Kerberos|
+|Realm|	PRAXIS.LOCAL|
+|Security Flavor|	krb5i oder krb5p|
+
+> 💡 Für kleine Umgebungen reicht ein integrierter KDC auf dem NFS-Server
+
+___
+
+### 1️⃣ Kerberos installieren (Server & Clients)
+
+```bash
+apt install krb5-kdc krb5-admin-server krb5-user
+```
+
+Realm-Abfrage:
+
+```bash
+Realm: PRAXIS.LOCAL
+KDC: server01.praxis.local
+Admin Server: server01.praxis.local
+```
+
+### 2️⃣ /etc/krb5.conf **(ALLE Systeme)**
+
+```bash
+[libdefaults]
+ default_realm = PRAXIS.LOCAL
+ dns_lookup_kdc = false
+ dns_lookup_realm = false
+ ticket_lifetime = 24h
+ forwardable = true
+
+[realms]
+ PRAXIS.LOCAL = {
+  kdc = server01.praxis.local
+  admin_server = server01.praxis.local
+ }
+
+[domain_realm]
+ .praxis.local = PRAXIS.LOCAL
+ praxis.local = PRAXIS.LOCAL
+```
+
+**⚠️ DNS & Zeit müssen stimmen!**
+→ chrony oder systemd-timesyncd
+___
+
+### 3️⃣ Kerberos initialisieren (nur Server)
+
+```bash
+krb5_newrealm
+```
+
+Admin anlegen:
+
+```bash
+kadmin.local
+addprinc admin/admin
+quit
+```
+___
+
+### 4️⃣ NFS-Service-Principals anlegen
+
+```bash
+kadmin.local
+addprinc -randkey nfs/server01.praxis.local
+ktadd nfs/server01.praxis.local
+quit
+```
+✔️ Keytab landet in /etc/krb5.keytab
+___
+
+### 5️⃣ NFS-Server Kerberos-fähig machen
+/etc/default/nfs-kernel-server
+
+```bash
+RPCNFSDOPTS="--nfs-version 4.2"
+```
+
+**Kerberos aktivieren**
+
+```bash
+systemctl restart nfs-server rpc-gssd rpc-svcgssd
+```
+___
+
+### 6️⃣ /etc/exports (mit Kerberos!)
+
+```bash
+/srv/nfs  *(ro,fsid=0,sec=krb5i)
+/srv/nfs/praxis *(rw,sync,sec=krb5i)
+```
+**🔐 Security-Optionen**
+- krb5 → Authentifiziert
+- krb5i → + Integrität (empfohlen)
+- krb5p → + Verschlüsselung (langsamer)
+
+Aktivieren:
+
+```bash
+exportfs -ra
+```
+___
+
+### 7️⃣ Client konfigurieren
+**Dienste starten**
+
+```bash
+systemctl enable rpc-gssd --now
+```
+
+**Kerberos-Ticket holen**
+
+```bash
+kinit praxis
+klist
+```
+___
+
+### 8️⃣ Mount (Client)
+
+```bash
+mount -t nfs4 -o sec=krb5i server01.praxis.local:/praxis /praxis
+```
+
+/etc/fstab
+
+```bash
+server01.praxis.local:/praxis /praxis nfs4 sec=krb5i,_netdev,hard 0 0
+```
+___
+
+### 9️⃣ WICHTIGE Praxisregeln
+**🔒 Sicherheit**
+- root_squash ist implizit
+- UID/GID müssen trotzdem identisch sein
+- Kerberos ersetzt keine Unix-Rechte
+
+**⏱ Zeit**
+
+```bash
+apt install chrony
+```
+
+Zeitabweichung > 5 Minuten = **Login kaputt**
+
+### 10️⃣ Typische Fehler & Ursachen
+
+|Fehler|	Ursache|
+|-------|----------|
+|access denied by server|	kein Ticket (kinit)|
+|Permission denied|	UID/GID| mismatch|
+|No credentials found|	rpc-gssd läuft nicht|
+|Mount hängt|	DNS / Reverse DNS falsch|
+
+🏁 Ergebnis
+
+✔ Kryptografisch gesicherter NFS-Zugriff
+
+✔ Keine IP- oder UID-Fälschung
+
+✔ Praxis- & revisionssicher
+
+✔ Produktionsstandard
