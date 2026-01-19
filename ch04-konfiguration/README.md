@@ -73,4 +73,43 @@ ufw allow from 192.168.10.0/24 to any port 2049 proto tcp
 NFSv4 nutzt **nur Port 2049** → deutlich sicherer als NFSv3
 ___
 
+### 5️⃣ Client-Konfiguration
+**Pakete installieren**
+
+```bash
+apt install nfs-common
+```
+
+**Mountpunkt**
+
+```bash
+mkdir -p /praxis
+```
+
+**Manuell testen**
+
+```bash
+mount -t nfs4 server01:/praxis /praxis
+```
+
+Wenn das funktioniert → **Automount**
+___
+
+### 6️⃣ /etc/fstab **(Client – stabil & sauber)**
+
+```bash
+server01:/praxis  /praxis  nfs4  _netdev,noatime,hard,timeo=600,retrans=5  0  0
+```
+
+✔️  _netdev → bootet auch ohne Server
+✔️  hard → keine stillen Datenverluste
+✔️  noatime → Performance
+
+Test:
+
+```bash
+mount -a
+```
+___
+
 
