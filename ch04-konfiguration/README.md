@@ -353,6 +353,12 @@ ___
 ✅ Ergebnis
 
 ✔ Zentraler, stabiler Fileserver
+
 ✔ Saubere Linux-Integration
+
 ✔ Minimaler Wartungsaufwand
+
 ✔ Praxis- & produktionsgeeignet
+___
+
+
