@@ -20,9 +20,14 @@ Hier ist ein **praxisnahes, sauberes NFSv4-Setup unter Linux** (Server + Client)
 |NFS-Version|	NFSv4.2|
 |Sicherheit|	IP-basiert + Root-Squash|
 
-**⚠️ Wichtig:**
-Alle Systeme müssen **identische UID/GID** für Benutzer haben
-(z. B. User praxis = UID 1001 überall)
+⚠️ **Wichtig**: Konsistente Benutzer- und Gruppenkennungen
+
+Bei NFSv4 mit AUTH_SYS (sec=sys) sollten Benutzer und Gruppen auf NFS-Server und NFS-Clients konsistente numerische UID- und GID-Werte besitzen.
+Beispiel: Der Benutzer praxis verwendet auf allen beteiligten Systemen UID 1001 und GID 1001.
+Unterschiedliche Kennungen können zu Zugriffsproblemen führen oder dazu, dass ein anderer Benutzer unbeabsichtigt Zugriff auf Dateien erhält.
+Bei NFSv4 mit Kerberos ist dagegen eine namensbasierte Authentifizierung mit serverseitiger Identitätszuordnung möglich. Identische numerische UIDs auf allen Systemen sind dann nicht grundsätzlich erforderlich.
+
+**Merksatz**: Bei NFSv4 mit sec=sys sind konsistente UID/GID-Werte entscheidend. Bei NFSv4 mit Kerberos steht dagegen die authentifizierte Benutzeridentität im Vordergrund.
 ___
 
 ### 2️⃣ NFS-Server einrichten
